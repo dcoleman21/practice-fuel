@@ -27,6 +27,19 @@ RSpec.describe 'Search by location' do
     expect(page).to have_content("Hours")
     expect(page).to have_content("MO: Not Specified; TU: Not Specified; WE: Not Specified; TH: Not Specified; FR: Not Specified; SA: Not Specified; SU: Not Specified")
   end
+
+  it "can get distance, travel time and directions to station" do
+    visit '/'
+
+    select "Turing", from: :location
+    click_on "Find Nearest Station"
+
+    expect(current_path).to eq("/search")
+    expect(page).to have_content("The distance to this station is: 0.081")
+    expect(page).to have_content("The travel time to this station is: 00:00:18")
+    expect(page).to have_content("Directions to this fuel station:")
+    expect(page).to have_content("Start out going southeast on 17th St toward Larimer St/CO-33., 1225 17TH ST, SUITE 130 is on the right.")
+  end
 end
 
 # As a user
